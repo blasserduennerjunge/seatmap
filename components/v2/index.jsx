@@ -6,15 +6,17 @@ export const SeatMapV2 = ({ data = [] }) => {
   const [activeCabin, setActiveCabin] = useState(1);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const handleSelectSeats = useCallback(
-    (name, price = 0) => {
-      const findItem = selectedSeats.find((item) => item.name === name);
+    (name, price = 0, cabin = 1) => {
+      console.log('cabin', cabin);
+      const findItem = selectedSeats.find((item) => item.name === name && item.cabin === cabin);
       if (findItem) {
         console.log('wtf');
-        const filteredArr = selectedSeats.filter((item) => item.name !== name);
+        const filteredArr = selectedSeats.filter((item) => item.name !== name && item.cabin !== cabin);
+        console.log('filteredArr', filteredArr);
         setSelectedSeats(filteredArr);
       } else {
         console.log('else 1!', name);
-        setSelectedSeats([...selectedSeats, { name, price }]);
+        setSelectedSeats([...selectedSeats, { name, price, cabin }]);
       }
     },
     [selectedSeats]
@@ -40,15 +42,43 @@ export const SeatMapV2 = ({ data = [] }) => {
       )}
       {selectedSeats?.length > 0 && (
         <div className='fixed top-0 right-[10px] z-10 border bg-white rounded'>
-          <h2 className='text-center'>Selected Seats</h2>
-          <ul className='divide-y p-2'>
-            {selectedSeats.map(({ price, name }) => (
-              <li key={name} className='flex justify-between'>
-                <span>{name}</span>
-                <span>{price} €</span>
-              </li>
-            ))}
-          </ul>
+          {!!selectedSeats.find(({ cabin }) => cabin === 1) && (
+            <>
+              <h3 className='text-center'>Cabin 1 Seats</h3>
+              <ul className='divide-y p-2'>
+                {selectedSeats.map(({ price, name, cabin = 1 }) => {
+                  if (cabin === 2) {
+                    return null;
+                  }
+                  return (
+                    <li key={name} className='flex justify-between'>
+                      <span>{name}</span>
+                      <span>{price} €</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          )}
+          {!!selectedSeats.find(({ cabin }) => cabin === 2) && (
+            <>
+              <h3 className='text-center'>Cabin 2 Seats</h3>
+              <ul className='divide-y p-2'>
+                {selectedSeats.map(({ price, name, cabin = 1 }) => {
+                  if (cabin === 1) {
+                    return null;
+                  }
+                  return (
+                    <li key={name} className='flex justify-between'>
+                      <span>{name}</span>
+                      <span>{price} €</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          )}
+
           <div className='bg-blue-200 text-blue-900 flex justify-between p-2 space-x-2'>
             <span>{`${selectedSeats.length} Seats`}</span>
             <span>{`${Math.round(sum * 100) / 100}€`}</span>
@@ -82,12 +112,14 @@ export const SeatMapV2 = ({ data = [] }) => {
                                 <Fragment key={groupPosition}>
                                   {seats.map(({ type, name, gridCol, prices }) => {
                                     const { available = false, price = 0 } = prices?.[0] || {};
-                                    const seatSelected = !!selectedSeats.find((item) => item.name === name);
+                                    const seatSelected = !!selectedSeats.find(
+                                      (item) => item.name === name && item.cabin === activeCabin
+                                    );
 
                                     return (
                                       <button
                                         type='button'
-                                        onClick={available ? () => handleSelectSeats(name, price) : null}
+                                        onClick={available ? () => handleSelectSeats(name, price, activeCabin) : null}
                                         key={gridCol}
                                         className={cn(
                                           'w-[50px] h-[50px] border flex flex-col justify-center items-center rounded',
@@ -119,11 +151,13 @@ export const SeatMapV2 = ({ data = [] }) => {
                               <Fragment key={groupPosition}>
                                 {seats.map(({ type, name, gridCol, prices }) => {
                                   const { available = false, price = 0 } = prices?.[0] || {};
-                                  const seatSelected = !!selectedSeats.find((item) => item.name === name);
+                                  const seatSelected = !!selectedSeats.find(
+                                    (item) => item.name === name && item.cabin === activeCabin
+                                  );
                                   return (
                                     <button
                                       type='button'
-                                      onClick={available ? () => handleSelectSeats(name, price) : null}
+                                      onClick={available ? () => handleSelectSeats(name, price, activeCabin) : null}
                                       key={gridCol}
                                       className={cn(
                                         'w-[50px] h-[50px] border flex flex-col justify-center items-center rounded',
