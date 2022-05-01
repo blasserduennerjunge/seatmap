@@ -1,7 +1,6 @@
 import cn from 'classnames';
-import { Fragment } from 'react/cjs/react.production.min';
-import { useState } from 'react';
-import { useCallback } from 'react/cjs/react.development';
+import { useCallback, Fragment, useState } from 'react';
+
 export const SeatMapV2 = ({ data = [] }) => {
   const { seatmaps = [] } = data?.data || {};
   const [activeCabin, setActiveCabin] = useState(1);
