@@ -92,7 +92,7 @@ export const SeatMapV2 = ({ data = [] }) => {
                                         className={cn(
                                           'w-[50px] h-[50px] border flex flex-col justify-center items-center rounded',
                                           {
-                                            'bg-green-200': available,
+                                            'bg-green-200': available && !seatSelected,
                                             'bg-red-200 cursor-not-allowed': !available,
                                             'bg-blue-200': seatSelected,
                                           }
