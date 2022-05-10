@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.75" height="20.75" xml:space="preserve">
+  <g id="Main_Cabin_Available" stroke="#B3B3B3" stroke-width=".75" stroke-miterlimit="10">
+    <path fill="#E4E4E4" d="M20.375 18.375a2 2 0 0 1-2 2h-14a2 2 0 0 1-2-2v-16a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16z"/>
+    <path fill="#E4E4E4" d="M5.375 16.375a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v9zM22.375 16.375a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v9z"/>
+    <path fill="#E8E6F8" d="M6.375 15.375h10"/>
+  </g>
+</svg>

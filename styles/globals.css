@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.cockpit {
+  clip-path: polygon(14.7% 0%, 81.5% 0%, 100% 100%, 0% 100%);
+}
